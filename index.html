@@ -91,18 +91,9 @@
         #nav.shadow { box-shadow: 0 2px 20px rgba(0,0,0,0.09); }
         .nav-inner {
             max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
-            display: flex; align-items: center; justify-content: space-between; height: 64px;
+            display: flex; align-items: center; justify-content: center; height: 64px;
         }
-        .nav-brand {
-            font-family: var(--font-brand); font-size: 1.0rem;
-            letter-spacing: 0.05em; color: var(--dark);
-            white-space: nowrap; display: flex; align-items: center; gap: 0.5rem;
-        }
-        .nav-brand-star {
-            width: 8px; height: 8px; background: var(--gold); flex-shrink: 0;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-        }
-        .nav-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.2rem 2.2rem; list-style: none; }
+        .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem 2.8rem; list-style: none; }
         .nav-links a {
             font-family: var(--font-display); font-size: 0.78rem; font-weight: 500;
             letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-mid);
@@ -115,11 +106,10 @@
         .nav-links a:hover { color: var(--dark); }
         .nav-links a:hover::after { transform: scaleX(1); }
         @media (max-width: 680px) {
-            .nav-inner { flex-direction: row; height: 56px; padding: 0 1.25rem; gap: 0; align-items: center; justify-content: space-between; }
-            .nav-brand { font-size: 0.82rem; flex-shrink: 0; }
-            .nav-links { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 0 1.4rem; padding: 0 0.25rem; }
-            .nav-links::-webkit-scrollbar { display: none; }
-            .nav-links a { font-size: 0.68rem; letter-spacing: 0.1em; white-space: nowrap; }
+            .nav-inner { justify-content: flex-start; padding: 0; height: 52px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+            .nav-inner::-webkit-scrollbar { display: none; }
+            .nav-links { flex-wrap: nowrap; gap: 0 1.6rem; padding: 0 1.25rem; }
+            .nav-links a { font-size: 0.72rem; letter-spacing: 0.12em; white-space: nowrap; }
         }
         :target { scroll-margin-top: 110px; }
 
@@ -239,55 +229,43 @@
         .review-text { font-size: 0.85rem; font-weight: 400; color: var(--text); line-height: 1.75; flex: 1; }
         .review-author { font-family: var(--font-display); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--text-mid); }
 
-        /* ── LEISTUNGEN & PREISE ── */
+        /* ── LEISTUNGEN ── */
         #leistungen { background: var(--dark); }
         #leistungen .eyebrow { color: var(--gold-light); opacity: 0.7; }
         #leistungen h2.title { color: var(--cream); }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 420px));
-            gap: 1.5rem; justify-content: center;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
         }
-        .service-card {
-            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-            transition: box-shadow var(--t), border-color var(--t); cursor: pointer;
+        .service-tile {
+            border: 1px solid rgba(255,255,255,0.10);
+            padding: 2.4rem 2rem;
+            transition: border-color var(--t), background var(--t);
         }
-        .service-card:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.4); border-color: rgba(196,151,58,0.3); }
-        .service-card[open] { border-color: rgba(196,151,58,0.45); box-shadow: 0 8px 40px rgba(0,0,0,0.4); }
-        .service-card > summary {
-            padding: 2.4rem 1.75rem 1.75rem; text-align: center; list-style: none;
-            display: flex; flex-direction: column; align-items: center;
+        .service-tile:hover {
+            border-color: rgba(196,151,58,0.45);
+            background: rgba(255,255,255,0.03);
         }
-        .service-card > summary::-webkit-details-marker { display: none; }
-
-        /* Stern statt Emoji */
-        .service-icon {
-            display: block; margin-bottom: 1.1rem; width: 28px; height: 28px;
-            background: var(--gold); opacity: 0.6;
+        .service-tile-icon {
+            display: block; width: 10px; height: 10px; margin-bottom: 1.4rem;
+            background: var(--gold); opacity: 0.7;
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
         }
-        .service-card h3 { font-family: var(--font-display); font-size: 1.3rem; color: var(--cream); margin-bottom: 0.65rem; letter-spacing: 0.04em; }
-        .service-card .service-desc { font-size: 0.875rem; color: rgba(248,245,239,0.45); line-height: 1.85; margin-bottom: 1.4rem; }
-        .expand-hint {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            font-family: var(--font-display); font-size: 0.58rem; font-weight: 400;
-            letter-spacing: 0.22em; text-transform: uppercase; color: rgba(248,245,239,0.3);
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 1rem; width: 100%; justify-content: center; transition: color var(--t);
+        .service-tile-stars { display: flex; gap: 5px; margin-bottom: 1.1rem; }
+        .service-tile-stars span {
+            display: inline-block; width: 13px; height: 13px; background: var(--gold);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
         }
-        .service-card:hover .expand-hint, .service-card[open] .expand-hint { color: var(--gold); }
-        .expand-icon { font-size: 1.1rem; display: inline-block; transition: transform 0.3s ease; }
-        .service-card[open] > summary .expand-icon { transform: rotate(45deg); }
-        .service-prices { border-top: 1px solid rgba(255,255,255,0.07); padding: 1.3rem 1.75rem 1.75rem; }
-        .price-row {
-            display: flex; justify-content: space-between; align-items: baseline;
-            padding: 0.55rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); gap: 1rem;
+        .service-tile h3 {
+            font-family: var(--font-display); font-size: 1.05rem; color: var(--cream);
+            letter-spacing: 0.04em; margin-bottom: 0.85rem; line-height: 1.3;
         }
-        .price-row:last-child { border-bottom: none; }
-        .price-svc { font-size: 0.85rem; font-weight: 300; color: rgba(248,245,239,0.5); }
-        .price-amt { font-family: var(--font-display); font-size: 0.95rem; color: var(--gold-light); white-space: nowrap; flex-shrink: 0; }
-        .price-footnote { margin-top: 2.5rem; font-size: 0.73rem; color: rgba(248,245,239,0.3); text-align: center; }
+        .service-tile p {
+            font-size: 0.88rem; font-weight: 300; color: rgba(248,245,239,0.5);
+            line-height: 1.9;
+        }
         @media (max-width: 640px) { .services-grid { grid-template-columns: 1fr; } }
 
         /* ── ÖFFNUNGSZEITEN ── */
@@ -349,11 +327,6 @@
 <!-- NAVIGATION -->
 <header id="nav" role="banner">
     <div class="nav-inner">
-        <a href="#" class="nav-brand" aria-label="Star Herren Salon – Startseite">
-            <span class="nav-brand-star" aria-hidden="true"></span>
-            Star Herren Salon
-            <span class="nav-brand-star" aria-hidden="true"></span>
-        </a>
         <nav aria-label="Hauptnavigation">
             <ul class="nav-links">
                 <li><a href="#ueber-uns">Über uns</a></li>
@@ -537,67 +510,42 @@
 </section>
 
 
-<!-- LEISTUNGEN & PREISE -->
+<!-- LEISTUNGEN -->
 <section id="leistungen" class="section">
     <div class="section-inner">
         <div class="section-header">
             <span class="eyebrow reveal">Für jeden Anlass</span>
-            <h2 class="title reveal">Leistungen &amp; Preise</h2>
+            <h2 class="title reveal">Unsere Leistungen</h2>
             <div class="ornament reveal" aria-hidden="true"><div class="ornament-star" style="background:rgba(196,151,58,0.5);"></div></div>
-            <p class="reveal" style="font-size:0.82rem;color:rgba(248,245,239,0.38);margin-top:0.5rem;font-family:var(--font-display);letter-spacing:0.04em;">
-                Klicken Sie auf eine Kategorie, um die Preisliste einzusehen.
-            </p>
         </div>
 
         <div class="services-grid">
 
-            <!-- HERREN -->
-            <details class="service-card reveal">
-                <summary>
-                    <span class="service-icon" aria-hidden="true"></span>
-                    <h3>Herren</h3>
-                    <p class="service-desc">
-                        Klassische und moderne Schnitte, Maschinenschnitt,
-                        Bartschneiden und Rasur – professionell und präzise.
-                    </p>
-                    <span class="expand-hint">
-                        Preise anzeigen <span class="expand-icon">+</span>
-                    </span>
-                </summary>
-                <div class="service-prices">
-                    <div class="price-row"><span class="price-svc">Maschinenschnitt</span><span class="price-amt">ab 10,00 €</span></div>
-                    <div class="price-row"><span class="price-svc">Waschen, Schneiden, Fönen</span><span class="price-amt">ab 18,00 €</span></div>
-                    <div class="price-row"><span class="price-svc">Trockenschnitt</span><span class="price-amt">ab 12,00 €</span></div>
-                    <div class="price-row"><span class="price-svc">Bartschneiden</span><span class="price-amt">ab 8,00 €</span></div>
-                    <div class="price-row"><span class="price-svc">Bartrasur (klassisch)</span><span class="price-amt">ab 12,00 €</span></div>
-                    <div class="price-row"><span class="price-svc">Schnitt &amp; Bart kombi</span><span class="price-amt">ab 25,00 €</span></div>
-                </div>
-            </details>
+            <div class="service-tile reveal-left">
+                <div class="service-tile-stars" aria-label="5 Sterne"><span></span><span></span><span></span><span></span><span></span></div>
+                <h3>Klassische &amp; moderne Haarschnitte</h3>
+                <p>Ob Sie einen klassischen Look bevorzugen oder etwas Neues ausprobieren möchten – wir sind für Sie da.</p>
+            </div>
 
-            <!-- KINDER -->
-            <details class="service-card reveal d2">
-                <summary>
-                    <span class="service-icon" aria-hidden="true"></span>
-                    <h3>Kinder</h3>
-                    <p class="service-desc">
-                        Kinderhaarschnitte in entspannter Atmosphäre –
-                        schnell, freundlich und mit einem Lächeln.
-                    </p>
-                    <span class="expand-hint">
-                        Preise anzeigen <span class="expand-icon">+</span>
-                    </span>
-                </summary>
-                <div class="service-prices">
-                    <div class="price-row"><span class="price-svc">Kinderschnitt (bis 12 J.)</span><span class="price-amt">ab 8,00 €</span></div>
-                    <div class="price-row"><span class="price-svc">Waschen, Schneiden, Fönen</span><span class="price-amt">ab 18,00 €</span></div>
-                </div>
-            </details>
+            <div class="service-tile reveal-right d1">
+                <div class="service-tile-stars" aria-label="5 Sterne"><span></span><span></span><span></span><span></span><span></span></div>
+                <h3>Bartpflege</h3>
+                <p>Von der einfachen Barttrimmung bis zur kompletten Bartgestaltung – wir sorgen dafür, dass Ihr Bart perfekt aussieht.</p>
+            </div>
+
+            <div class="service-tile reveal-left d2">
+                <div class="service-tile-stars" aria-label="5 Sterne"><span></span><span></span><span></span><span></span><span></span></div>
+                <h3>Styling &amp; Beratung</h3>
+                <p>Unsere Experten beraten Sie gerne, um den perfekten Stil für Ihre Persönlichkeit und Ihren Lebensstil zu finden.</p>
+            </div>
+
+            <div class="service-tile reveal-right d3">
+                <div class="service-tile-stars" aria-label="5 Sterne"><span></span><span></span><span></span><span></span><span></span></div>
+                <h3>Exklusive Pflegeprodukte</h3>
+                <p>Wir verwenden nur hochwertige Produkte, die speziell für die Bedürfnisse der Männerhaut und -haare entwickelt wurden.</p>
+            </div>
 
         </div>
-
-        <p class="price-footnote reveal">
-            * Alle Preise sind Richtpreise – der endgültige Preis richtet sich nach Haarlänge und Aufwand. Gerne beraten wir Sie persönlich.
-        </p>
     </div>
 </section>
 
