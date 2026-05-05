@@ -177,7 +177,7 @@
         #hero {
             min-height: 100svh;
             display: flex; align-items: center; justify-content: center;
-            text-align: center; padding: 9rem 2rem 6rem;
+            text-align: center; padding: 6.75rem 2rem 6rem;
             position: relative; overflow: hidden;
             background: transparent;
         }
@@ -191,10 +191,10 @@
             display: flex; flex-direction: column; align-items: center;
         }
         .hero-eyebrow {
-            font-family: var(--font-display); font-size: 1.025rem; font-weight: 400;
+            font-family: var(--font-display); font-size: 0.92rem; font-weight: 400;
             letter-spacing: 0.38em; text-transform: uppercase;
             color: rgba(255,255,255,0.88);
-            margin-bottom: 2.2rem; animation: fadein 0.9s 0.2s ease both;
+            margin-bottom: 1.65rem; animation: fadein 0.9s 0.2s ease both;
         }
         .hero-logo-wrap { margin: 0 auto 0.2rem; animation: fadein 1.0s 0.35s ease both; }
         .hero-logo {
@@ -404,30 +404,19 @@
         #team h2.title { color: var(--white); }
         #team .ornament::before, #team .ornament::after { background: var(--accent); opacity: 0.3; }
 
-        .team-carousel {
-            position: relative;
-            overflow: hidden;
-            /* Fade-Masken links + rechts */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2rem;
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 2rem;
         }
-        .team-carousel::before,
-        .team-carousel::after {
-            content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2;
-            pointer-events: none;
+        @media (max-width: 900px) {
+            .team-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem 1.5rem; }
         }
-        .team-carousel::before { left:  0; background: linear-gradient(to right, #0a0c10, transparent); }
-        .team-carousel::after  { right: 0; background: linear-gradient(to left,  #0a0c10, transparent); }
-
-        .team-track {
-            display: flex;
-            gap: 2.5rem;
-            width: max-content;
-            animation: team-marquee 28s linear infinite;
-        }
-        .team-track:hover { animation-play-state: paused; }
-
-        @keyframes team-marquee {
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
+        @media (max-width: 520px) {
+            .team-grid { grid-template-columns: repeat(2, 1fr); gap: 1.8rem 1.2rem; }
         }
 
         /* einzelne Karte */
@@ -436,22 +425,19 @@
             flex-direction: column;
             align-items: center;
             gap: 0.85rem;
-            flex-shrink: 0;
-            cursor: default;
         }
 
         .team-avatar-wrap {
-            width: 120px;
-            height: 120px;
+            width: 100%;
+            aspect-ratio: 1;
             border-radius: 50%;
             overflow: hidden;
             border: 1.5px solid rgba(196,151,58,0.30);
             outline: 4px solid rgba(196,151,58,0.07);
             background: var(--dark);
             transition: border-color var(--t), outline-color var(--t);
-            flex-shrink: 0;
         }
-        .team-track:hover .team-card:hover .team-avatar-wrap {
+        .team-card:hover .team-avatar-wrap {
             border-color: var(--accent);
             outline-color: rgba(196,151,58,0.14);
         }
@@ -459,13 +445,13 @@
         .team-avatar {
             width: 100%; height: 100%;
             object-fit: cover;
-            object-position: center top;  /* Kopf + Schultern */
+            object-position: center top;
             display: block;
         }
 
         .team-name {
             font-family: var(--font-display);
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--white);
@@ -600,6 +586,9 @@
             background: var(--dark);
             transition: border-color var(--t), box-shadow var(--t);
             overflow: hidden;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
         .price-card:hover { border-color: rgba(196,151,58,0.50); }
         .price-card.open  { border-color: rgba(196,151,58,0.45); box-shadow: 0 6px 28px rgba(0,0,0,0.25); }
@@ -1080,14 +1069,11 @@
             <h2 class="title reveal">Das Team</h2>
             <div class="ornament reveal" aria-hidden="true"><div class="ornament-star"></div></div>
         </div>
-    </div>
 
-    <!-- Carousel läuft volle Breite, ohne max-w-Beschnitt -->
-    <div class="team-carousel">
-        <div class="team-track" id="teamTrack">
+    <div class="team-grid">
 
             <!-- Mitarbeiter 1 – bild_mitarbeiter1.jpg -->
-            <div class="team-card">
+            <div class="team-card reveal">
                 <div class="team-avatar-wrap">
                     <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 1" loading="lazy">
                 </div>
@@ -1095,7 +1081,7 @@
             </div>
 
             <!-- Mitarbeiter 2 – bild_mitarbeiter2.jpg -->
-            <div class="team-card">
+            <div class="team-card reveal d1">
                 <div class="team-avatar-wrap">
                     <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 2" loading="lazy">
                 </div>
@@ -1103,7 +1089,7 @@
             </div>
 
             <!-- Mitarbeiter 3 – bild_mitarbeiter3.jpg -->
-            <div class="team-card">
+            <div class="team-card reveal d2">
                 <div class="team-avatar-wrap">
                     <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 3" loading="lazy">
                 </div>
@@ -1111,7 +1097,7 @@
             </div>
 
             <!-- Mitarbeiter 4 – bild_mitarbeiter4.jpg -->
-            <div class="team-card">
+            <div class="team-card reveal d3">
                 <div class="team-avatar-wrap">
                     <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 4" loading="lazy">
                 </div>
@@ -1119,7 +1105,7 @@
             </div>
 
             <!-- Mitarbeiter 5 – bild_mitarbeiter5.jpg -->
-            <div class="team-card">
+            <div class="team-card reveal d4">
                 <div class="team-avatar-wrap">
                     <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 5" loading="lazy">
                 </div>
@@ -1127,15 +1113,15 @@
             </div>
 
             <!-- Mitarbeiter 6 – bild_mitarbeiter6.jpg -->
-            <div class="team-card">
+            <div class="team-card reveal d4">
                 <div class="team-avatar-wrap">
                     <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 6" loading="lazy">
                 </div>
                 <span class="team-name">Vorname</span>
             </div>
 
-        </div><!-- /team-track -->
-    </div><!-- /team-carousel -->
+        </div><!-- /team-grid -->
+    </div><!-- /section-inner -->
 </section>
 
 
@@ -1337,18 +1323,17 @@
     // Endloses Rezensionen-Band
     const track = document.getElementById('reviewsTrack');
     if (track) { track.innerHTML += track.innerHTML; }
-
-    // Endloses Team-Carousel
-    const teamTrack = document.getElementById('teamTrack');
-    if (teamTrack) { teamTrack.innerHTML += teamTrack.innerHTML; }
     // Expand Cards (Preisliste)
     document.querySelectorAll('.price-card').forEach(card => {
-        const toggle = () => {
+        const toggle = (e) => {
+            e.preventDefault();
             const isOpen = card.classList.toggle('open');
             card.setAttribute('aria-expanded', isOpen);
+            card.blur(); // prevent mobile browser scroll-to-focus
         };
         card.addEventListener('click', toggle);
-        card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+        card.addEventListener('touchend', (e) => { e.preventDefault(); toggle(e); }, { passive: false });
+        card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); } });
     });
 
 
@@ -1358,6 +1343,7 @@
         const prev   = document.getElementById('gPrev');
         const next   = document.getElementById('gNext');
         const slider = document.getElementById('geschichteSlides');
+        const section = document.getElementById('geschichte');
         if (!slides.length) return;
 
         let current = 0;
@@ -1374,17 +1360,16 @@
         next.addEventListener('click', () => goTo(current + 1));
         dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
 
-        // Touch-Swipe
+        // Touch-Swipe – volle Sektionsbreite
         let touchStartX = 0;
         let touchStartY = 0;
-        slider.addEventListener('touchstart', e => {
+        section.addEventListener('touchstart', e => {
             touchStartX = e.touches[0].clientX;
             touchStartY = e.touches[0].clientY;
         }, { passive: true });
-        slider.addEventListener('touchend', e => {
+        section.addEventListener('touchend', e => {
             const dx = e.changedTouches[0].clientX - touchStartX;
             const dy = e.changedTouches[0].clientY - touchStartY;
-            // Nur auslösen wenn horizontale Geste dominiert (kein versehentliches Scrollen)
             if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
                 dx < 0 ? goTo(current + 1) : goTo(current - 1);
             }
