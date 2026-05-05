@@ -21,9 +21,9 @@
             --text:       #18191c;
             --text-mid:   #4e535f;
             --text-light: #888f9e;
-            --accent:       #1B5DA0;
-            --accent-light: #4A7FA8;
-            --accent-dark:  #0F3E72;
+            --accent:       #C4973A;
+            --accent-light: #DDB96A;
+            --accent-dark:  #9B7220;
             --font-display: 'Cinzel', serif;
             --font-brand:   'Cinzel Decorative', serif;
             --font-body:    'Lato', sans-serif;
@@ -143,7 +143,7 @@
             margin: 1.5rem 0 1.7rem; animation: fadein 1.0s 0.5s ease both;
         }
         .hero-ornament::before, .hero-ornament::after {
-            content: ''; display: block; width: 60px; height: 1px; background: rgba(74,127,168,0.45);
+            content: ''; display: block; width: 60px; height: 1px; background: rgba(196,151,58,0.45);
         }
         .hero-ornament-star {
             width: 11px; height: 11px; background: var(--accent);
@@ -157,7 +157,7 @@
         .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: slideup 0.9s 0.8s ease both; }
         .hero-scroll {
             position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-            width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, rgba(74,127,168,0.45));
+            width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, rgba(196,151,58,0.45));
         }
         @keyframes fadein { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
         @keyframes slideup { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
@@ -245,7 +245,7 @@
             transition: border-color var(--t), background var(--t);
         }
         .service-tile:hover {
-            border-color: rgba(74,127,168,0.45);
+            border-color: rgba(196,151,58,0.45);
             background: rgba(255,255,255,0.03);
         }
         .service-tile-icon {
@@ -293,7 +293,7 @@
         #kontakt .eyebrow { opacity: 0.55; }
         #kontakt h2.title { color: var(--white); }
         #kontakt .ornament::before, #kontakt .ornament::after { background: var(--accent); opacity: 0.22; }
-        #kontakt .ornament-star { background: rgba(74,127,168,0.35); }
+        #kontakt .ornament-star { background: rgba(196,151,58,0.35); }
         .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start; }
         .contact-left h3 { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.04em; color: var(--white); margin-bottom: 1rem; }
         .contact-left p { font-size: 0.88rem; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 2; margin-bottom: 1.2rem; }
@@ -305,7 +305,7 @@
         .form-grp { display: flex; flex-direction: column; gap: 0.3rem; }
         .form-grp label { font-family: var(--font-display); font-size: 0.57rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
         .form-grp input, .form-grp textarea { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 0.78rem 0.95rem; font-family: var(--font-body); font-size: 0.9rem; font-weight: 300; color: var(--white); width: 100%; outline: none; transition: border-color var(--t); }
-        .form-grp input:focus, .form-grp textarea:focus { border-color: rgba(74,127,168,0.45); }
+        .form-grp input:focus, .form-grp textarea:focus { border-color: rgba(196,151,58,0.45); }
         .form-grp input::placeholder, .form-grp textarea::placeholder { color: rgba(255,255,255,0.18); }
         .form-grp textarea { resize: vertical; min-height: 120px; }
         .form-note { font-size: 0.65rem; color: rgba(255,255,255,0.20); margin-top: 0.2rem; }
@@ -356,14 +356,14 @@
             height: 120px;
             border-radius: 50%;
             overflow: hidden;
-            border: 1.5px solid rgba(74,127,168,0.30);
-            outline: 4px solid rgba(74,127,168,0.07);
+            border: 1.5px solid rgba(196,151,58,0.30);
+            outline: 4px solid rgba(196,151,58,0.07);
             transition: border-color var(--t), outline-color var(--t);
             flex-shrink: 0;
         }
         .team-track:hover .team-card:hover .team-avatar-wrap {
             border-color: var(--accent);
-            outline-color: rgba(74,127,168,0.14);
+            outline-color: rgba(196,151,58,0.14);
         }
 
         .team-avatar {
@@ -589,7 +589,7 @@
         <div class="section-header">
             <span class="eyebrow reveal">Für jeden Anlass</span>
             <h2 class="title reveal">Unsere Leistungen</h2>
-            <div class="ornament reveal" aria-hidden="true"><div class="ornament-star" style="background:rgba(74,127,168,0.45);"></div></div>
+            <div class="ornament reveal" aria-hidden="true"><div class="ornament-star" style="background:rgba(196,151,58,0.45);"></div></div>
         </div>
 
         <div class="services-grid">
@@ -693,7 +693,7 @@
             <!-- Mitarbeiter 1 – bild_mitarbeiter1.jpg -->
             <div class="team-card">
                 <div class="team-avatar-wrap">
-                    <img class="team-avatar" src="bild_mitarbeiter1.jpg" alt="Portrait Mitarbeiter 1" loading="lazy">
+                    <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 1" loading="lazy">
                 </div>
                 <span class="team-name">Vorname</span>
             </div>
@@ -701,7 +701,7 @@
             <!-- Mitarbeiter 2 – bild_mitarbeiter2.jpg -->
             <div class="team-card">
                 <div class="team-avatar-wrap">
-                    <img class="team-avatar" src="bild_mitarbeiter2.jpg" alt="Portrait Mitarbeiter 2" loading="lazy">
+                    <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 2" loading="lazy">
                 </div>
                 <span class="team-name">Vorname</span>
             </div>
@@ -709,7 +709,7 @@
             <!-- Mitarbeiter 3 – bild_mitarbeiter3.jpg -->
             <div class="team-card">
                 <div class="team-avatar-wrap">
-                    <img class="team-avatar" src="bild_mitarbeiter3.jpg" alt="Portrait Mitarbeiter 3" loading="lazy">
+                    <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 3" loading="lazy">
                 </div>
                 <span class="team-name">Vorname</span>
             </div>
@@ -717,7 +717,7 @@
             <!-- Mitarbeiter 4 – bild_mitarbeiter4.jpg -->
             <div class="team-card">
                 <div class="team-avatar-wrap">
-                    <img class="team-avatar" src="bild_mitarbeiter4.jpg" alt="Portrait Mitarbeiter 4" loading="lazy">
+                    <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 4" loading="lazy">
                 </div>
                 <span class="team-name">Vorname</span>
             </div>
@@ -725,7 +725,7 @@
             <!-- Mitarbeiter 5 – bild_mitarbeiter5.jpg -->
             <div class="team-card">
                 <div class="team-avatar-wrap">
-                    <img class="team-avatar" src="bild_mitarbeiter5.jpg" alt="Portrait Mitarbeiter 5" loading="lazy">
+                    <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 5" loading="lazy">
                 </div>
                 <span class="team-name">Vorname</span>
             </div>
@@ -733,7 +733,7 @@
             <!-- Mitarbeiter 6 – bild_mitarbeiter6.jpg -->
             <div class="team-card">
                 <div class="team-avatar-wrap">
-                    <img class="team-avatar" src="bild_mitarbeiter6.jpg" alt="Portrait Mitarbeiter 6" loading="lazy">
+                    <img class="team-avatar" src="https://placehold.co/300x300/e2e4e8/9aa0ad?text=Foto" alt="Portrait Mitarbeiter 6" loading="lazy">
                 </div>
                 <span class="team-name">Vorname</span>
             </div>
@@ -749,7 +749,7 @@
         <div class="section-header">
             <span class="eyebrow reveal">Schreiben Sie uns</span>
             <h2 class="title reveal">Kontakt</h2>
-            <div class="ornament reveal" aria-hidden="true"><div class="ornament-star" style="background:rgba(74,127,168,0.35);"></div></div>
+            <div class="ornament reveal" aria-hidden="true"><div class="ornament-star" style="background:rgba(196,151,58,0.35);"></div></div>
         </div>
         <div class="contact-grid">
             <div class="contact-left reveal">
