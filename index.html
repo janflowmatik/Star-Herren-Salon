@@ -196,14 +196,14 @@
             color: rgba(255,255,255,0.88);
             margin-bottom: 1.65rem; animation: fadein 0.9s 0.2s ease both;
         }
-        .hero-logo-wrap { margin: 0 auto 0.2rem; animation: fadein 1.0s 0.35s ease both; }
+        .hero-logo-wrap { margin: 0 auto 0.15rem; animation: fadein 1.0s 0.35s ease both; }
         .hero-logo {
             width: min(340px, 74vw); height: auto; display: block; margin: 0 auto;
             mix-blend-mode: screen;
         }
         .hero-ornament {
             display: flex; align-items: center; gap: 0.8rem; justify-content: center;
-            margin: 1.6rem 0 1.4rem; animation: fadein 1.0s 0.5s ease both;
+            margin: 1.2rem 0 1.05rem; animation: fadein 1.0s 0.5s ease both;
         }
         .hero-ornament::before, .hero-ornament::after {
             content: ''; display: block; width: 60px; height: 1px;
@@ -465,22 +465,31 @@
 
         .geschichte-carousel { position: relative; max-width: var(--max-w); margin: 0 auto; }
 
-        /* Slides */
-        .geschichte-slides { position: relative; overflow: hidden; }
+        /* Sliding Track */
+        .geschichte-slides {
+            overflow: hidden;
+            border-radius: 16px;
+            touch-action: pan-y;
+        }
+        .geschichte-track {
+            display: flex;
+            will-change: transform;
+            transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .geschichte-track.dragging {
+            transition: none;
+        }
         .geschichte-slide {
-            display: none;
+            min-width: 100%;
+            flex-shrink: 0;
+            display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
-            opacity: 0;
-            transition: opacity 0.55s ease;
-
             background: var(--white);
-            border-radius: 16px;
             box-shadow: 0 8px 40px rgba(0,0,0,0.10), 0 2px 10px rgba(0,0,0,0.05);
             padding: 2.8rem 3rem;
         }
-        .geschichte-slide.active { display: grid; opacity: 1; }
 
         /* Bild – links */
         .geschichte-img-wrap { position: relative; }
@@ -538,10 +547,7 @@
             color: var(--text-mid);
             font-size: 1rem; transition: color var(--t), transform var(--t);
         }
-        .geschichte-arrow:hover {
-            color: var(--accent);
-            transform: scale(1.2);
-        }
+        .geschichte-arrow:hover { color: var(--accent); transform: scale(1.2); }
         .geschichte-arrow svg { width: 16px; height: 16px; pointer-events: none; }
 
         /* Dots */
@@ -551,9 +557,7 @@
             background: var(--gray-300); border: none; padding: 0; cursor: pointer;
             transition: background var(--t), transform var(--t);
         }
-        .geschichte-dot.active {
-            background: var(--accent); transform: scale(1.35);
-        }
+        .geschichte-dot.active { background: var(--accent); transform: scale(1.35); }
 
         @media (max-width: 760px) {
             .geschichte-slide { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.6rem; }
@@ -1136,9 +1140,10 @@
 
         <div class="geschichte-carousel reveal">
             <div class="geschichte-slides" id="geschichteSlides">
+              <div class="geschichte-track" id="geschichteTrack">
 
                 <!-- Kapitel 1 – Bild: geschichte_1.jpg -->
-                <div class="geschichte-slide active">
+                <div class="geschichte-slide">
                     <div class="geschichte-img-wrap">
                         <img class="geschichte-img"
                              src="https://placehold.co/640x480/e2e4e8/9aa0ad?text=Foto+1"
@@ -1185,6 +1190,7 @@
                     </div>
                 </div>
 
+              </div><!-- /geschichte-track -->
             </div><!-- /geschichte-slides -->
 
             <!-- Navigation -->
@@ -1338,41 +1344,58 @@
 
 
     (function () {
-        const slides = Array.from(document.querySelectorAll('.geschichte-slide'));
-        const dots   = Array.from(document.querySelectorAll('.geschichte-dot'));
-        const prev   = document.getElementById('gPrev');
-        const next   = document.getElementById('gNext');
-        const slider = document.getElementById('geschichteSlides');
+        const track   = document.getElementById('geschichteTrack');
         const section = document.getElementById('geschichte');
-        if (!slides.length) return;
+        const dots    = Array.from(document.querySelectorAll('.geschichte-dot'));
+        const prev    = document.getElementById('gPrev');
+        const next    = document.getElementById('gNext');
+        if (!track) return;
 
+        const total = dots.length;
         let current = 0;
+        let startX = 0, startY = 0, dragX = 0, isDragging = false;
 
-        function goTo(idx) {
-            slides[current].classList.remove('active');
-            dots[current].classList.remove('active');
-            current = (idx + slides.length) % slides.length;
-            slides[current].classList.add('active');
-            dots[current].classList.add('active');
+        function setSlide(idx, instant) {
+            current = (idx + total) % total;
+            track.style.transition = instant ? 'none' : 'transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94)';
+            track.style.transform  = `translateX(-${current * 100}%)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === current));
         }
 
-        prev.addEventListener('click', () => goTo(current - 1));
-        next.addEventListener('click', () => goTo(current + 1));
-        dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+        setSlide(0, true);
 
-        // Touch-Swipe – volle Sektionsbreite
-        let touchStartX = 0;
-        let touchStartY = 0;
+        prev.addEventListener('click', () => setSlide(current - 1));
+        next.addEventListener('click', () => setSlide(current + 1));
+        dots.forEach((d, i) => d.addEventListener('click', () => setSlide(i)));
+
+        // Drag / swipe – full section width
         section.addEventListener('touchstart', e => {
-            touchStartX = e.touches[0].clientX;
-            touchStartY = e.touches[0].clientY;
+            startX    = e.touches[0].clientX;
+            startY    = e.touches[0].clientY;
+            dragX     = 0;
+            isDragging = false;
         }, { passive: true });
-        section.addEventListener('touchend', e => {
-            const dx = e.changedTouches[0].clientX - touchStartX;
-            const dy = e.changedTouches[0].clientY - touchStartY;
-            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-                dx < 0 ? goTo(current + 1) : goTo(current - 1);
-            }
+
+        section.addEventListener('touchmove', e => {
+            const dx = e.touches[0].clientX - startX;
+            const dy = e.touches[0].clientY - startY;
+            if (!isDragging && Math.abs(dy) > Math.abs(dx)) return; // vertical scroll wins
+            isDragging = true;
+            dragX = dx;
+            const base = -(current * 100);
+            const pct  = (dragX / track.parentElement.offsetWidth) * 100;
+            track.classList.add('dragging');
+            track.style.transform = `translateX(calc(${base}% + ${dragX}px))`;
+        }, { passive: true });
+
+        section.addEventListener('touchend', () => {
+            track.classList.remove('dragging');
+            if (!isDragging) return;
+            const threshold = track.parentElement.offsetWidth * 0.2;
+            if (dragX < -threshold)      setSlide(current + 1);
+            else if (dragX > threshold)  setSlide(current - 1);
+            else                         setSlide(current); // snap back
+            isDragging = false;
         }, { passive: true });
     })();
     (function () {
