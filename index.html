@@ -501,8 +501,10 @@
         /* Bild – links */
         .geschichte-img-wrap { position: relative; }
         .geschichte-img {
-            width: 100%; aspect-ratio: 4/3;
-            object-fit: cover; object-position: center;
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            object-position: center;
             display: block;
             border-radius: 8px;
         }
@@ -567,9 +569,16 @@
         .geschichte-dot.active { background: var(--accent); transform: scale(1.35); }
 
         @media (max-width: 760px) {
-            .geschichte-slide { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 1.6rem; }
+            .geschichte-slide {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+                padding: 1.4rem;
+            }
             .geschichte-img-accent { display: none; }
-            .geschichte-year { font-size: 1.6rem; }
+            .geschichte-img { aspect-ratio: 16/9; }
+            .geschichte-year { font-size: 1.4rem; }
+            .geschichte-title { font-size: 1.1rem; }
+            .geschichte-body { font-size: 0.85rem; line-height: 1.7; }
         }
         footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); padding: 2.8rem 2rem; position: relative; z-index: 1; }
         .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; text-align: center; }
@@ -950,7 +959,7 @@
         <div class="preise-grid">
 
             <!-- Karte 1: Haarschnitte -->
-            <div class="price-card reveal-left" tabindex="0" role="button" aria-expanded="false">
+            <div class="price-card reveal-left">
                 <div class="price-card-front">
                     <div>
                         <h3 class="price-card-title">Haarschnitte</h3>
@@ -972,7 +981,7 @@
             </div>
 
             <!-- Karte 2: Bartpflege -->
-            <div class="price-card reveal" tabindex="0" role="button" aria-expanded="false">
+            <div class="price-card reveal">
                 <div class="price-card-front">
                     <div>
                         <h3 class="price-card-title">Bartpflege</h3>
@@ -994,7 +1003,7 @@
             </div>
 
             <!-- Karte 3: Pakete -->
-            <div class="price-card reveal-right" tabindex="0" role="button" aria-expanded="false">
+            <div class="price-card reveal-right">
                 <div class="price-card-front">
                     <div>
                         <h3 class="price-card-title">Pakete</h3>
@@ -1337,15 +1346,18 @@
     if (track) { track.innerHTML += track.innerHTML; }
     // Expand Cards (Preisliste)
     document.querySelectorAll('.price-card').forEach(card => {
-        const toggle = (e) => {
-            e.preventDefault();
+        const front = card.querySelector('.price-card-front');
+        front.addEventListener('click', e => {
+            e.stopPropagation();
             const isOpen = card.classList.toggle('open');
             card.setAttribute('aria-expanded', isOpen);
-            card.blur(); // prevent mobile browser scroll-to-focus
-        };
-        card.addEventListener('click', toggle);
-        card.addEventListener('touchend', (e) => { e.preventDefault(); toggle(e); }, { passive: false });
-        card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(e); } });
+        });
+        front.addEventListener('touchend', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            const isOpen = card.classList.toggle('open');
+            card.setAttribute('aria-expanded', isOpen);
+        }, { passive: false });
     });
 
 
