@@ -113,53 +113,116 @@
         }
         :target { scroll-margin-top: 110px; }
 
-        /* ── HERO ──
-           hero.jpg       → Hintergrundfoto, gleicher Ordner
-           logo_star.png  → Logo, gleicher Ordner
-           mix-blend-mode:screen macht den schwarzen Logo-Hintergrund transparent. */
+        /* ── HERO – Animated Gradient Mesh ── */
         #hero {
             min-height: 100svh;
             display: flex; align-items: center; justify-content: center;
-            text-align: center; padding: 9rem 2rem 5rem;
+            text-align: center; padding: 9rem 2rem 6rem;
             position: relative; overflow: hidden;
-            background-image:
-                linear-gradient(rgba(10,12,16,0.62), rgba(10,12,16,0.68)),
-                url('hero.jpg');
-            background-size: cover; background-position: center 35%;
+            background-color: #0a0c0f;
         }
-        .hero-content { position: relative; z-index: 1; max-width: 700px; }
+
+        /* Mesh: 4 animierte radiale Gradient-Nodes */
+        #hero::before {
+            content: '';
+            position: absolute; inset: -20%;
+            background:
+                radial-gradient(ellipse 55% 45% at 20% 30%,  rgba(196,151,58,0.18) 0%, transparent 65%),
+                radial-gradient(ellipse 45% 55% at 80% 20%,  rgba(196,151,58,0.10) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 70% 80%,  rgba(196,151,58,0.13) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 60% at 15% 75%,  rgba(196,151,58,0.08) 0%, transparent 55%),
+                radial-gradient(ellipse 80% 80% at 50% 50%,  rgba(20,18,14,0.95)  0%, transparent 100%);
+            animation: mesh-drift 18s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+        /* zweite Schicht für Tiefe */
+        #hero::after {
+            content: '';
+            position: absolute; inset: -20%;
+            background:
+                radial-gradient(ellipse 50% 40% at 60% 15%,  rgba(196,151,58,0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 35% 55% at 30% 85%,  rgba(196,151,58,0.09) 0%, transparent 60%);
+            animation: mesh-drift 24s 4s ease-in-out infinite alternate-reverse;
+            z-index: 0;
+        }
+
+        @keyframes mesh-drift {
+            0%   { transform: translate(0%,    0%)    scale(1); }
+            33%  { transform: translate(3%,   -2.5%)  scale(1.03); }
+            66%  { transform: translate(-2%,   3%)    scale(0.98); }
+            100% { transform: translate(1.5%, -1.5%)  scale(1.02); }
+        }
+
+        .hero-content {
+            position: relative; z-index: 1; max-width: 760px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
         .hero-eyebrow {
             font-family: var(--font-display); font-size: 1.025rem; font-weight: 400;
-            letter-spacing: 0.32em; text-transform: uppercase; color: rgba(255,255,255,0.85);
-            margin-bottom: 2rem; animation: fadein 0.9s 0.2s ease both;
+            letter-spacing: 0.38em; text-transform: uppercase;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 2.2rem;
+            animation: fadein 0.9s 0.2s ease both;
         }
-        .hero-logo-wrap { margin: 0 auto 0.5rem; animation: fadein 1.0s 0.35s ease both; }
+
+        .hero-logo-wrap { margin: 0 auto 0.2rem; animation: fadein 1.0s 0.35s ease both; }
         .hero-logo {
             width: min(340px, 74vw); height: auto; display: block; margin: 0 auto;
-            mix-blend-mode: screen;   /* Schwarzer PNG-Hintergrund → transparent */
+            mix-blend-mode: screen;
         }
+
         .hero-ornament {
             display: flex; align-items: center; gap: 0.8rem; justify-content: center;
-            margin: 1.5rem 0 1.7rem; animation: fadein 1.0s 0.5s ease both;
+            margin: 1.6rem 0 1.4rem; animation: fadein 1.0s 0.5s ease both;
         }
         .hero-ornament::before, .hero-ornament::after {
-            content: ''; display: block; width: 60px; height: 1px; background: rgba(196,151,58,0.45);
+            content: ''; display: block; width: 60px; height: 1px;
+            background: rgba(196,151,58,0.45);
         }
         .hero-ornament-star {
             width: 11px; height: 11px; background: var(--accent);
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
         }
-        .hero-tagline {
-            font-size: clamp(1.25rem, 3vw, 1.65rem); font-weight: 300; font-style: italic;
-            color: rgba(255,255,255,0.80); margin-bottom: 2.8rem;
+
+        /* Hauptzeile */
+        .hero-heading {
+            font-family: var(--font-display);
+            font-size: clamp(1.55rem, 4vw, 2.4rem);
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: #ffffff;
+            line-height: 1.3;
+            margin-bottom: 1.1rem;
             animation: slideup 0.9s 0.6s ease both;
         }
-        .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; animation: slideup 0.9s 0.8s ease both; }
+        /* Punkte in Gold */
+        .hero-heading .dot { color: var(--accent); }
+
+        /* Stütztext */
+        .hero-tagline {
+            font-size: clamp(0.88rem, 1.8vw, 1.05rem);
+            font-weight: 300;
+            font-style: italic;
+            color: rgba(255,255,255,0.52);
+            margin-bottom: 2.8rem;
+            letter-spacing: 0.02em;
+            animation: slideup 0.9s 0.75s ease both;
+        }
+
+        .hero-ctas {
+            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+            animation: slideup 0.9s 0.9s ease both;
+        }
+
         .hero-scroll {
             position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-            width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, rgba(196,151,58,0.45));
+            width: 1px; height: 48px;
+            background: linear-gradient(to bottom, transparent, rgba(196,151,58,0.45));
+            z-index: 1;
         }
-        @keyframes fadein { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+
+        @keyframes fadein  { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
         @keyframes slideup { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ── SECTIONS ── */
@@ -412,27 +475,33 @@
 </header>
 
 
-<!-- HERO
-     Dateien im gleichen Ordner ablegen:
-       hero.jpg       → Hintergrundfoto
-       logo_star.png  → Logo (schwarzer Hintergrund wird via mix-blend-mode:screen transparent) -->
+<!-- HERO – Animated Gradient Mesh
+     logo_star.png im gleichen Ordner ablegen. Kein Hintergrundfoto nötig. -->
 <section id="hero" aria-label="Willkommen bei Star Herren Salon">
     <div class="hero-content">
-        <p class="hero-eyebrow">Ihr Friseur in Kiel · Gaarden</p>
+
+        <p class="hero-eyebrow">Kiel · Gaarden · Seit 2005</p>
 
         <div class="hero-logo-wrap">
-            <img class="hero-logo"
-                 src="logo_star.png"
-                 alt="Star Herren Salon – Logo">
+            <img class="hero-logo" src="logo_star.png" alt="Star Herren Salon – Logo">
         </div>
 
         <div class="hero-ornament" aria-hidden="true">
             <span class="hero-ornament-star"></span>
         </div>
-        <p class="hero-tagline">Erstklassige Schnitte. Präzise Bartpflege. Persönliche Beratung.</p>
+
+        <h1 class="hero-heading">
+            36 Jahre Erfahrung<span class="dot">.</span>
+            Ein Handwerk<span class="dot">.</span>
+            Eine Leidenschaft<span class="dot">.</span>
+        </h1>
+
+        <p class="hero-tagline">Meisterfriseur aus Überzeugung – seit 2005 Ihr Salon in Gaarden.</p>
+
         <div class="hero-ctas">
             <a href="tel:043177593580" class="btn btn-gold">Jetzt anrufen</a>
         </div>
+
     </div>
     <div class="hero-scroll" aria-hidden="true"></div>
 </section>
