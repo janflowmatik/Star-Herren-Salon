@@ -644,83 +644,86 @@
         .footer-links a:hover { color: var(--accent); }
         .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.20); }
         /* ── PREISE ── */
-        .preise-hint {
-            margin-top: 0.5rem; font-size: 0.78rem; color: var(--text-light);
-            font-style: italic; letter-spacing: 0.02em;
+        /* ── PREISE TABS ── */
+        .preise-tabs {
+            max-width: 640px;
+            margin: 0 auto;
         }
-        .preise-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 1.8rem; align-items: start;
-        }
-        @media (max-width: 760px) { .preise-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; } }
 
-        /* Expand mechanic */
-        .price-card {
+        /* Tab-Leiste */
+        .price-tab-list {
+            display: flex;
+            border-bottom: 1px solid rgba(196,151,58,0.20);
+            margin-bottom: 0;
+            gap: 0;
+        }
+        .price-tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            padding: 0.9rem 0.5rem;
             cursor: pointer;
+            text-align: center;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            transition: color var(--t), border-color var(--t), background var(--t);
+        }
+        .price-tab-btn-title {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 0.78rem;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            transition: color var(--t);
+        }
+        .price-tab-btn-sub {
+            display: block;
+            font-size: 0.65rem;
+            color: var(--text-light);
+            opacity: 0.55;
+            margin-top: 0.15rem;
+            font-weight: 300;
+            transition: color var(--t);
+        }
+        .price-tab-btn:hover .price-tab-btn-title { color: var(--accent); }
+        .price-tab-btn[aria-selected="true"] {
+            border-bottom-color: var(--accent);
+        }
+        .price-tab-btn[aria-selected="true"] .price-tab-btn-title {
+            color: var(--accent);
+        }
+        .price-tab-btn[aria-selected="true"] .price-tab-btn-sub {
+            opacity: 0.8;
+        }
+
+        /* Tab-Panels */
+        .price-tab-panels {
             border: 1px solid rgba(196,151,58,0.18);
+            border-top: none;
             background: var(--dark);
-            transition: border-color var(--t), box-shadow var(--t);
-            overflow: hidden;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
         }
-        .price-card:hover { border-color: rgba(196,151,58,0.50); }
-        .price-card.open  { border-color: rgba(196,151,58,0.45); box-shadow: 0 6px 28px rgba(0,0,0,0.25); }
-
-        /* Header – always visible */
-        .price-card-front {
-            padding: 1.4rem 2rem;
-            display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-            cursor: pointer;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
+        .price-tab-panel {
+            display: none;
+            padding: 1.6rem 2rem 1.8rem;
         }
-        .price-card-title {
-            font-family: var(--font-display); font-size: 1rem; color: var(--white);
-            letter-spacing: 0.06em; line-height: 1.2;
-        }
-        .price-card-sub {
-            font-size: 0.75rem; color: rgba(255,255,255,0.35);
-            font-weight: 300; letter-spacing: 0.04em;
-            margin-top: 0.2rem;
-        }
-        .price-card-cue {
-            font-size: 1.1rem; color: var(--accent); opacity: 0.7;
-            transition: transform var(--t), opacity var(--t);
-            flex-shrink: 0; line-height: 1;
-        }
-        .price-card.open .price-card-cue { transform: rotate(45deg); opacity: 1; }
-
-        /* Body – collapses / expands */
-        .price-card-back {
-            max-height: 0; overflow: hidden;
-            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-                        padding 0.35s ease;
-            padding: 0 1.6rem;
-            border-top: 0px solid rgba(196,151,58,0.15);
-        }
-        .price-card.open .price-card-back {
-            max-height: 320px;
-            padding: 1rem 1.6rem 1.4rem;
-            border-top-width: 1px;
-        }
-
-        .price-back-title { display: none; } /* title already in header */
+        .price-tab-panel.active { display: block; }
 
         .price-table { width: 100%; border-collapse: collapse; }
         .price-table tr { border-bottom: 1px solid rgba(255,255,255,0.07); }
         .price-table tr:last-child { border-bottom: none; }
         .price-table td {
-            padding: 0.55rem 0.2rem; font-size: 0.84rem; font-weight: 300;
+            padding: 0.7rem 0.2rem; font-size: 0.88rem; font-weight: 300;
             color: rgba(255,255,255,0.75);
         }
         .price-table td:last-child {
             text-align: right; font-family: var(--font-display);
-            font-size: 0.80rem; color: var(--accent-light); white-space: nowrap;
+            font-size: 0.82rem; color: var(--accent-light); white-space: nowrap;
         }
         .price-back-note {
-            font-size: 0.6rem; color: rgba(255,255,255,0.25); margin-top: 0.8rem;
+            font-size: 0.62rem; color: rgba(255,255,255,0.25); margin-top: 1rem;
             font-style: italic; text-align: center;
         }
 
@@ -1017,21 +1020,30 @@
             <span class="eyebrow reveal">Transparente Preise</span>
             <h2 class="title reveal">Unsere Preise</h2>
             <div class="ornament reveal" aria-hidden="true"><div class="ornament-star"></div></div>
-            <p class="preise-hint reveal d2">Karte antippen, um die Preise zu sehen.</p>
         </div>
 
-        <div class="preise-grid">
+        <div class="preise-tabs reveal">
 
-            <!-- Karte 1: Haarschnitte -->
-            <div class="price-card reveal-left">
-                <div class="price-card-front">
-                    <div>
-                        <h3 class="price-card-title">Haarschnitte</h3>
-                        <p class="price-card-sub">Klassisch &amp; Modern</p>
-                    </div>
-                    <span class="price-card-cue" aria-hidden="true">+</span>
-                </div>
-                <div class="price-card-back">
+            <!-- Tab-Leiste -->
+            <div class="price-tab-list" role="tablist">
+                <button class="price-tab-btn" role="tab" aria-selected="true"  aria-controls="tab-haarschnitte" id="btn-haarschnitte">
+                    <span class="price-tab-btn-title">Haarschnitte</span>
+                    <span class="price-tab-btn-sub">Klassisch &amp; Modern</span>
+                </button>
+                <button class="price-tab-btn" role="tab" aria-selected="false" aria-controls="tab-bart"          id="btn-bart">
+                    <span class="price-tab-btn-title">Bartpflege</span>
+                    <span class="price-tab-btn-sub">Trimmen &amp; Rasur</span>
+                </button>
+                <button class="price-tab-btn" role="tab" aria-selected="false" aria-controls="tab-pakete"        id="btn-pakete">
+                    <span class="price-tab-btn-title">Pakete</span>
+                    <span class="price-tab-btn-sub">Kombi &amp; Extras</span>
+                </button>
+            </div>
+
+            <!-- Tab-Panels -->
+            <div class="price-tab-panels">
+
+                <div class="price-tab-panel active" id="tab-haarschnitte" role="tabpanel" aria-labelledby="btn-haarschnitte">
                     <table class="price-table">
                         <tbody>
                             <tr><td>Herrenschnitt</td><td>ab 15 €</td></tr>
@@ -1042,18 +1054,8 @@
                     </table>
                     <p class="price-back-note">* Preise können je nach Aufwand variieren.</p>
                 </div>
-            </div>
 
-            <!-- Karte 2: Bartpflege -->
-            <div class="price-card reveal">
-                <div class="price-card-front">
-                    <div>
-                        <h3 class="price-card-title">Bartpflege</h3>
-                        <p class="price-card-sub">Trimmen &amp; Rasur</p>
-                    </div>
-                    <span class="price-card-cue" aria-hidden="true">+</span>
-                </div>
-                <div class="price-card-back">
+                <div class="price-tab-panel" id="tab-bart" role="tabpanel" aria-labelledby="btn-bart">
                     <table class="price-table">
                         <tbody>
                             <tr><td>Barttrimmen</td><td>ab 8 €</td></tr>
@@ -1064,18 +1066,8 @@
                     </table>
                     <p class="price-back-note">* Preise können je nach Aufwand variieren.</p>
                 </div>
-            </div>
 
-            <!-- Karte 3: Pakete -->
-            <div class="price-card reveal-right">
-                <div class="price-card-front">
-                    <div>
-                        <h3 class="price-card-title">Pakete</h3>
-                        <p class="price-card-sub">Kombi &amp; Extras</p>
-                    </div>
-                    <span class="price-card-cue" aria-hidden="true">+</span>
-                </div>
-                <div class="price-card-back">
+                <div class="price-tab-panel" id="tab-pakete" role="tabpanel" aria-labelledby="btn-pakete">
                     <table class="price-table">
                         <tbody>
                             <tr><td>Komplett-Paket</td><td>ab 28 €</td></tr>
@@ -1086,9 +1078,10 @@
                     </table>
                     <p class="price-back-note">* Preise können je nach Aufwand variieren.</p>
                 </div>
-            </div>
 
-        </div><!-- /preise-grid -->
+            </div><!-- /price-tab-panels -->
+        </div><!-- /preise-tabs -->
+
         <p class="preise-disclaimer reveal">Alle Preise sind Richtwerte. Für ein genaues Angebot sprechen Sie uns gerne an: <a href="tel:043177593580">0431 / 77 59 358</a></p>
     </div>
 </section>
@@ -1408,22 +1401,15 @@
     // Endloses Rezensionen-Band
     const track = document.getElementById('reviewsTrack');
     if (track) { track.innerHTML += track.innerHTML; }
-    // Expand Cards (Preisliste)
-    document.querySelectorAll('.price-card').forEach(card => {
-        const front = card.querySelector('.price-card-front');
-
-        // touchend für Mobile – verhindert Scroll-Sprung und den synthetischen click
-        front.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            card.classList.toggle('open');
-        });
-
-        // click für Desktop
-        front.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            card.classList.toggle('open');
+    // Preise – Tab-System
+    const tabBtns   = document.querySelectorAll('.price-tab-btn');
+    const tabPanels = document.querySelectorAll('.price-tab-panel');
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.setAttribute('aria-selected', 'false'));
+            tabPanels.forEach(p => p.classList.remove('active'));
+            btn.setAttribute('aria-selected', 'true');
+            document.getElementById(btn.getAttribute('aria-controls')).classList.add('active');
         });
     });
 
