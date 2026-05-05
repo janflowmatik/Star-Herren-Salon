@@ -644,87 +644,64 @@
         .footer-links a:hover { color: var(--accent); }
         .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.20); }
         /* ── PREISE ── */
-        /* ── PREISE TABS ── */
-        .preise-tabs {
-            max-width: 640px;
-            margin: 0 auto;
+        /* ── PREISE – Static Cards ── */
+        .price-cards-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            align-items: start;
+        }
+        @media (max-width: 760px) {
+            .price-cards-row { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
         }
 
-        /* Tab-Leiste */
-        .price-tab-list {
-            display: flex;
-            border-bottom: 1px solid rgba(196,151,58,0.20);
-            margin-bottom: 0;
-            gap: 0;
-        }
-        .price-tab-btn {
-            flex: 1;
-            background: none;
-            border: none;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -1px;
-            padding: 0.9rem 0.5rem;
-            cursor: pointer;
-            text-align: center;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-            transition: color var(--t), border-color var(--t), background var(--t);
-        }
-        .price-tab-btn-title {
-            display: block;
-            font-family: var(--font-display);
-            font-size: 0.78rem;
-            letter-spacing: 0.10em;
-            text-transform: uppercase;
-            color: var(--text-light);
-            transition: color var(--t);
-        }
-        .price-tab-btn-sub {
-            display: block;
-            font-size: 0.65rem;
-            color: var(--text-light);
-            opacity: 0.55;
-            margin-top: 0.15rem;
-            font-weight: 300;
-            transition: color var(--t);
-        }
-        .price-tab-btn:hover .price-tab-btn-title { color: var(--accent); }
-        .price-tab-btn[aria-selected="true"] {
-            border-bottom-color: var(--accent);
-        }
-        .price-tab-btn[aria-selected="true"] .price-tab-btn-title {
-            color: var(--accent);
-        }
-        .price-tab-btn[aria-selected="true"] .price-tab-btn-sub {
-            opacity: 0.8;
-        }
-
-        /* Tab-Panels */
-        .price-tab-panels {
-            border: 1px solid rgba(196,151,58,0.18);
-            border-top: none;
+        .price-static-card {
             background: var(--dark);
+            border: 1px solid rgba(196,151,58,0.22);
+            padding: 2rem 2rem 1.8rem;
         }
-        .price-tab-panel {
-            display: none;
-            padding: 1.6rem 2rem 1.8rem;
+
+        .price-static-head {
+            margin-bottom: 1.4rem;
         }
-        .price-tab-panel.active { display: block; }
+        .price-static-title {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            color: var(--white);
+            line-height: 1.2;
+        }
+        .price-static-sub {
+            font-size: 0.72rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 0.06em;
+            margin-top: 0.3rem;
+        }
+        .price-static-rule {
+            width: 36px;
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.5;
+            margin-top: 1rem;
+        }
 
         .price-table { width: 100%; border-collapse: collapse; }
         .price-table tr { border-bottom: 1px solid rgba(255,255,255,0.07); }
         .price-table tr:last-child { border-bottom: none; }
         .price-table td {
-            padding: 0.7rem 0.2rem; font-size: 0.88rem; font-weight: 300;
-            color: rgba(255,255,255,0.75);
+            padding: 0.65rem 0.2rem;
+            font-size: 0.86rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.72);
         }
         .price-table td:last-child {
-            text-align: right; font-family: var(--font-display);
-            font-size: 0.82rem; color: var(--accent-light); white-space: nowrap;
-        }
-        .price-back-note {
-            font-size: 0.62rem; color: rgba(255,255,255,0.25); margin-top: 1rem;
-            font-style: italic; text-align: center;
+            text-align: right;
+            font-family: var(--font-display);
+            font-size: 0.80rem;
+            color: var(--accent-light);
+            white-space: nowrap;
         }
 
         .preise-disclaimer {
@@ -1022,65 +999,60 @@
             <div class="ornament reveal" aria-hidden="true"><div class="ornament-star"></div></div>
         </div>
 
-        <div class="preise-tabs reveal">
+        <div class="price-cards-row">
 
-            <!-- Tab-Leiste -->
-            <div class="price-tab-list" role="tablist">
-                <button class="price-tab-btn" role="tab" aria-selected="true"  aria-controls="tab-haarschnitte" id="btn-haarschnitte">
-                    <span class="price-tab-btn-title">Haarschnitte</span>
-                    <span class="price-tab-btn-sub">Klassisch &amp; Modern</span>
-                </button>
-                <button class="price-tab-btn" role="tab" aria-selected="false" aria-controls="tab-bart"          id="btn-bart">
-                    <span class="price-tab-btn-title">Bartpflege</span>
-                    <span class="price-tab-btn-sub">Trimmen &amp; Rasur</span>
-                </button>
-                <button class="price-tab-btn" role="tab" aria-selected="false" aria-controls="tab-pakete"        id="btn-pakete">
-                    <span class="price-tab-btn-title">Pakete</span>
-                    <span class="price-tab-btn-sub">Kombi &amp; Extras</span>
-                </button>
+            <!-- Karte 1: Haarschnitte -->
+            <div class="price-static-card reveal-left">
+                <div class="price-static-head">
+                    <h3 class="price-static-title">Haarschnitte</h3>
+                    <p class="price-static-sub">Klassisch &amp; Modern</p>
+                    <div class="price-static-rule"></div>
+                </div>
+                <table class="price-table">
+                    <tbody>
+                        <tr><td>Herrenschnitt</td><td>ab 15 €</td></tr>
+                        <tr><td>Kinderschnitt (bis 12 J.)</td><td>ab 10 €</td></tr>
+                        <tr><td>Trendschnitt / Styling</td><td>ab 18 €</td></tr>
+                        <tr><td>Nackenrasur</td><td>ab 5 €</td></tr>
+                    </tbody>
+                </table>
             </div>
 
-            <!-- Tab-Panels -->
-            <div class="price-tab-panels">
-
-                <div class="price-tab-panel active" id="tab-haarschnitte" role="tabpanel" aria-labelledby="btn-haarschnitte">
-                    <table class="price-table">
-                        <tbody>
-                            <tr><td>Herrenschnitt</td><td>ab 15 €</td></tr>
-                            <tr><td>Kinderschnitt (bis 12 J.)</td><td>ab 10 €</td></tr>
-                            <tr><td>Trendschnitt / Styling</td><td>ab 18 €</td></tr>
-                            <tr><td>Nackenrasur</td><td>ab 5 €</td></tr>
-                        </tbody>
-                    </table>
-                    <p class="price-back-note">* Preise können je nach Aufwand variieren.</p>
+            <!-- Karte 2: Bartpflege -->
+            <div class="price-static-card reveal d1">
+                <div class="price-static-head">
+                    <h3 class="price-static-title">Bartpflege</h3>
+                    <p class="price-static-sub">Trimmen &amp; Rasur</p>
+                    <div class="price-static-rule"></div>
                 </div>
+                <table class="price-table">
+                    <tbody>
+                        <tr><td>Barttrimmen</td><td>ab 8 €</td></tr>
+                        <tr><td>Bartschnitt &amp; Kontur</td><td>ab 12 €</td></tr>
+                        <tr><td>Rasur (klassisch)</td><td>ab 15 €</td></tr>
+                        <tr><td>Haarschnitt + Bart</td><td>ab 22 €</td></tr>
+                    </tbody>
+                </table>
+            </div>
 
-                <div class="price-tab-panel" id="tab-bart" role="tabpanel" aria-labelledby="btn-bart">
-                    <table class="price-table">
-                        <tbody>
-                            <tr><td>Barttrimmen</td><td>ab 8 €</td></tr>
-                            <tr><td>Bartschnitt &amp; Kontur</td><td>ab 12 €</td></tr>
-                            <tr><td>Rasur (klassisch)</td><td>ab 15 €</td></tr>
-                            <tr><td>Haarschnitt + Bart</td><td>ab 22 €</td></tr>
-                        </tbody>
-                    </table>
-                    <p class="price-back-note">* Preise können je nach Aufwand variieren.</p>
+            <!-- Karte 3: Pakete -->
+            <div class="price-static-card reveal-right d1">
+                <div class="price-static-head">
+                    <h3 class="price-static-title">Pakete</h3>
+                    <p class="price-static-sub">Kombi &amp; Extras</p>
+                    <div class="price-static-rule"></div>
                 </div>
+                <table class="price-table">
+                    <tbody>
+                        <tr><td>Komplett-Paket</td><td>ab 28 €</td></tr>
+                        <tr><td>Augenbrauen formen</td><td>ab 5 €</td></tr>
+                        <tr><td>Ohren &amp; Nase</td><td>ab 4 €</td></tr>
+                        <tr><td>Pflegebehandlung</td><td>ab 10 €</td></tr>
+                    </tbody>
+                </table>
+            </div>
 
-                <div class="price-tab-panel" id="tab-pakete" role="tabpanel" aria-labelledby="btn-pakete">
-                    <table class="price-table">
-                        <tbody>
-                            <tr><td>Komplett-Paket</td><td>ab 28 €</td></tr>
-                            <tr><td>Augenbrauen formen</td><td>ab 5 €</td></tr>
-                            <tr><td>Ohren &amp; Nase</td><td>ab 4 €</td></tr>
-                            <tr><td>Pflegebehandlung</td><td>ab 10 €</td></tr>
-                        </tbody>
-                    </table>
-                    <p class="price-back-note">* Preise können je nach Aufwand variieren.</p>
-                </div>
-
-            </div><!-- /price-tab-panels -->
-        </div><!-- /preise-tabs -->
+        </div><!-- /price-cards-row -->
 
         <p class="preise-disclaimer reveal">Alle Preise sind Richtwerte. Für ein genaues Angebot sprechen Sie uns gerne an: <a href="tel:043177593580">0431 / 77 59 358</a></p>
     </div>
@@ -1401,17 +1373,7 @@
     // Endloses Rezensionen-Band
     const track = document.getElementById('reviewsTrack');
     if (track) { track.innerHTML += track.innerHTML; }
-    // Preise – Tab-System
-    const tabBtns   = document.querySelectorAll('.price-tab-btn');
-    const tabPanels = document.querySelectorAll('.price-tab-panel');
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            tabBtns.forEach(b => b.setAttribute('aria-selected', 'false'));
-            tabPanels.forEach(p => p.classList.remove('active'));
-            btn.setAttribute('aria-selected', 'true');
-            document.getElementById(btn.getAttribute('aria-controls')).classList.add('active');
-        });
-    });
+
 
 
     (function () {
