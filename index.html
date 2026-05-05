@@ -890,7 +890,7 @@
             { xf: 0.70, yf: 0.80, r: 0.52, color: 'rgba(196,151,58,ALPHA)', speed: 0.00016, phase: 2.50 },
             { xf: 0.25, yf: 0.75, r: 0.42, color: 'rgba(196,151,58,ALPHA)', speed: 0.00011, phase: 4.00 },
         ];
-        const alphas = [0.55, 0.42, 0.38, 0.32];
+        const alphas = [0.97, 0.74, 0.67, 0.56];
 
         let t = 0;
         function draw(ts) {
@@ -925,9 +925,9 @@
             // vignette overlay – dark edges, clear center
             ctx.globalCompositeOperation = 'source-over';
             const vg = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H) * 0.72);
-            vg.addColorStop(0,   'rgba(10,12,16,0.10)');
-            vg.addColorStop(0.5, 'rgba(10,12,16,0.45)');
-            vg.addColorStop(1,   'rgba(10,12,16,0.88)');
+            vg.addColorStop(0,   'rgba(10,12,16,0.00)');
+            vg.addColorStop(0.5, 'rgba(10,12,16,0.25)');
+            vg.addColorStop(1,   'rgba(10,12,16,0.49)');
             ctx.fillStyle = vg;
             ctx.fillRect(0, 0, W, H);
 
