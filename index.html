@@ -183,9 +183,10 @@
             position: relative; overflow: hidden;
             background: transparent;
         }
-        #mesh-canvas {
-            position: fixed; inset: 0;
+        #hero-video {
+            position: absolute; inset: 0;
             width: 100%; height: 100%;
+            object-fit: cover;
             z-index: 0; pointer-events: none;
         }
         .hero-content {
@@ -200,7 +201,7 @@
             pointer-events: none;
         }
         .hero-eyebrow {
-            font-family: var(--font-display); font-size: 0.92rem; font-weight: 400;
+            font-family: var(--font-display); font-size: 0.72rem; font-weight: 400;
             letter-spacing: 0.38em; text-transform: uppercase;
             color: rgba(255,255,255,0.88);
             margin-bottom: 1.65rem; animation: fadein 0.9s 0.2s ease both;
@@ -245,6 +246,7 @@
         .hero-ctas {
             display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
             animation: slideup 0.9s 0.9s ease both;
+            margin-top: 2.8rem;
         }
 
         .hero-scroll {
@@ -344,7 +346,7 @@
         .review-author { font-family: var(--font-display); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--text-mid); }
 
         /* ── LEISTUNGEN ── */
-        #leistungen { background: transparent; }
+        #leistungen { background: #000; }
         #leistungen .eyebrow { color: var(--accent-light); opacity: 0.7; }
         #leistungen h2.title { color: var(--white); }
 
@@ -401,6 +403,23 @@
         .find-val a:hover { border-color: var(--accent); color: var(--accent-dark); }
         .map-embed { margin-top: 1.5rem; border: 1px solid var(--gray-100); overflow: hidden; line-height: 0; }
         .map-embed iframe { display: block; width: 100%; height: 260px; border: 0; }
+
+        .find-top-row { display: flex; gap: 1.5rem; align-items: flex-start; justify-content: space-between; }
+        .find-details-col { flex: 1; }
+        .find-social { display: flex; flex-direction: column; gap: 0.9rem; flex-shrink: 0; }
+        .find-social-link {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.08em;
+            color: var(--dark); text-decoration: none;
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 0.75rem 1.1rem;
+            box-shadow: 0 8px 32px rgba(196,151,58,0.35), 0 2px 8px rgba(0,0,0,0.18);
+            transition: background var(--t), color var(--t), box-shadow var(--t);
+        }
+        .find-social-link svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--dark); }
+        .find-social-link:hover { background: transparent; color: var(--accent); box-shadow: 0 12px 40px rgba(196,151,58,0.45); }
+        .find-social-link:hover svg { color: var(--accent); }
         @media (max-width: 780px) { .hours-find-grid { grid-template-columns: 1fr; gap: 3rem; } }
 
         /* ── KONTAKT ── */
@@ -720,8 +739,6 @@
 </head>
 <body>
 
-<canvas id="mesh-canvas" aria-hidden="true"></canvas>
-
 <!-- NAVIGATION -->
 <header id="nav" role="banner">
     <div class="nav-inner">
@@ -771,8 +788,12 @@
 </nav>
 
 
-<!-- HERO – Animated Star Background -->
+<!-- HERO – Video Background -->
 <section id="hero" aria-label="Willkommen bei Star Herren Salon">
+
+    <video id="hero-video" autoplay muted loop playsinline aria-hidden="true">
+        <source src="hero-video.mp4" type="video/mp4">
+    </video>
 
     <div class="hero-content">
 
@@ -791,7 +812,6 @@
             Eine Leidenschaft<span class="dot">.</span>
         </h1>
 
-        <p class="hero-tagline">Meisterfriseur aus Überzeugung – seit 2005 Ihr Salon in Gaarden.</p>
 
         <div class="hero-ctas">
             <a href="tel:043177593580" class="btn btn-gold">Termin buchen</a>
@@ -1081,20 +1101,34 @@
             </div>
             <div class="find-col reveal d2">
                 <h3>Wo Sie uns finden</h3>
-                <div class="find-detail">
-                    <div class="find-icon" aria-hidden="true">📍</div>
-                    <div>
-                        <div class="find-val">
-                            <a href="https://maps.google.com/?q=Elisabethstr.+30,+24143+Kiel" target="_blank" rel="noopener noreferrer">
-                                Elisabethstr. 30<br>24143 Kiel – Gaarden
-                            </a>
+                <div class="find-top-row">
+                    <div class="find-details-col">
+                        <div class="find-detail">
+                            <div class="find-icon" aria-hidden="true">📍</div>
+                            <div>
+                                <div class="find-val">
+                                    <a href="https://maps.google.com/?q=Elisabethstr.+30,+24143+Kiel" target="_blank" rel="noopener noreferrer">
+                                        Elisabethstr. 30<br>24143 Kiel – Gaarden
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="find-detail">
+                            <div class="find-icon" aria-hidden="true">☎</div>
+                            <div>
+                                <div class="find-val"><a href="tel:043177593580">0431 / 77 59 358</a></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="find-detail">
-                    <div class="find-icon" aria-hidden="true">☎</div>
-                    <div>
-                        <div class="find-val"><a href="tel:043177593580">0431 / 77 59 358</a></div>
+                    <div class="find-social">
+                        <a href="https://www.instagram.com/starherrensalon/" target="_blank" rel="noopener noreferrer" class="find-social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>
+                            Instagram
+                        </a>
+                        <a href="https://www.tiktok.com/@starherrensalon" target="_blank" rel="noopener noreferrer" class="find-social-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.78a4.85 4.85 0 0 1-1.01-.09z"/></svg>
+                            TikTok
+                        </a>
                     </div>
                 </div>
                 <div class="map-embed">
@@ -1105,6 +1139,7 @@
                         referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -1440,146 +1475,6 @@
             else                         setSlide(current); // snap back
             isDragging = false;
         }, { passive: true });
-    })();
-    (function () {
-        const canvas = document.getElementById('mesh-canvas');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-
-        function resize() {
-            canvas.width  = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-        }
-        resize();
-        window.addEventListener('resize', resize, { passive: true });
-
-        // 4 animated bubbles – gold palette
-        const orbs = [
-            { xf: 0.15, yf: 0.20, r: 0.55, speed: 0.00018, phase: 0.00 },
-            { xf: 0.82, yf: 0.15, r: 0.48, speed: 0.00013, phase: 1.20 },
-            { xf: 0.70, yf: 0.80, r: 0.52, speed: 0.00016, phase: 2.50 },
-            { xf: 0.25, yf: 0.75, r: 0.42, speed: 0.00011, phase: 4.00 },
-            { xf: 0.50, yf: 0.48, r: 0.38, speed: 0.00014, phase: 3.10 },
-        ];
-        const alphas = [0.82, 0.63, 0.57, 0.48, 0.55];
-
-        function starPath(ctx, cx, cy, outerR, innerR, points, angle) {
-            const step = Math.PI / points;
-            ctx.beginPath();
-            for (let i = 0; i < points * 2; i++) {
-                const r   = i % 2 === 0 ? outerR : innerR;
-                const a   = angle + i * step - Math.PI / 2;
-                const x   = cx + Math.cos(a) * r;
-                const y   = cy + Math.sin(a) * r;
-                i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-            }
-            ctx.closePath();
-        }
-
-        function drawStar(cx, cy, rad, alpha, rotation) {
-            ctx.save();
-            const inner = rad * 0.42;
-
-            // 1 – soft ambient glow (radial, clipped to star silhouette)
-            const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, rad * 1.5);
-            glow.addColorStop(0,   `rgba(196,151,58,${(alpha * 0.22).toFixed(3)})`);
-            glow.addColorStop(1,   'rgba(196,151,58,0)');
-            ctx.globalCompositeOperation = 'lighter';
-            ctx.fillStyle = glow;
-            ctx.beginPath();
-            ctx.arc(cx, cy, rad * 1.5, 0, Math.PI * 2);
-            ctx.fill();
-
-            // 2 – star body with light from upper-left
-            const lightX = cx - rad * 0.35;
-            const lightY = cy - rad * 0.35;
-            const body = ctx.createRadialGradient(lightX, lightY, rad * 0.04, cx, cy, rad);
-            body.addColorStop(0,    `rgba(255,225,130,${(alpha * 0.55).toFixed(3)})`);
-            body.addColorStop(0.40, `rgba(196,151,58,${(alpha * 0.60).toFixed(3)})`);
-            body.addColorStop(0.80, `rgba(140,100,20,${(alpha * 0.65).toFixed(3)})`);
-            body.addColorStop(1,    `rgba(70, 45,  5,${(alpha * 0.70).toFixed(3)})`);
-            ctx.globalCompositeOperation = 'lighter';
-            ctx.fillStyle = body;
-            starPath(ctx, cx, cy, rad, inner, 5, rotation);
-            ctx.fill();
-
-            // 3 – rim light lower-right
-            const rim = ctx.createRadialGradient(
-                cx + rad * 0.50, cy + rad * 0.50, rad * 0.40,
-                cx, cy, rad
-            );
-            rim.addColorStop(0,    'rgba(255,230,140,0)');
-            rim.addColorStop(0.72, 'rgba(255,230,140,0)');
-            rim.addColorStop(0.90, `rgba(255,215,90,${(alpha * 0.32).toFixed(3)})`);
-            rim.addColorStop(1,    'rgba(255,230,140,0)');
-            ctx.globalCompositeOperation = 'lighter';
-            ctx.fillStyle = rim;
-            starPath(ctx, cx, cy, rad, inner, 5, rotation);
-            ctx.fill();
-
-            // 4 – specular glint upper-left tip
-            const specR  = rad * 0.18;
-            const specCx = cx - rad * 0.28;
-            const specCy = cy - rad * 0.32;
-            const spec = ctx.createRadialGradient(specCx, specCy, 0, specCx, specCy, specR);
-            spec.addColorStop(0,   `rgba(255,252,220,${(alpha * 0.85).toFixed(3)})`);
-            spec.addColorStop(0.5, `rgba(255,235,160,${(alpha * 0.30).toFixed(3)})`);
-            spec.addColorStop(1,   'rgba(255,220,100,0)');
-            ctx.globalCompositeOperation = 'lighter';
-            ctx.fillStyle = spec;
-            ctx.beginPath();
-            ctx.arc(specCx, specCy, specR, 0, Math.PI * 2);
-            ctx.fill();
-
-            // 5 – micro-glint
-            const g2R  = rad * 0.07;
-            const g2Cx = cx - rad * 0.14;
-            const g2Cy = cy - rad * 0.50;
-            const g2 = ctx.createRadialGradient(g2Cx, g2Cy, 0, g2Cx, g2Cy, g2R);
-            g2.addColorStop(0, `rgba(255,255,245,${(alpha * 0.65).toFixed(3)})`);
-            g2.addColorStop(1, 'rgba(255,255,200,0)');
-            ctx.globalCompositeOperation = 'lighter';
-            ctx.fillStyle = g2;
-            ctx.beginPath();
-            ctx.arc(g2Cx, g2Cy, g2R, 0, Math.PI * 2);
-            ctx.fill();
-
-            ctx.restore();
-        }
-
-        let t = 0;
-        function draw(ts) {
-            t = ts;
-            const W = canvas.width, H = canvas.height;
-
-            // dark base
-            ctx.clearRect(0, 0, W, H);
-            ctx.fillStyle = '#0a0c10';
-            ctx.fillRect(0, 0, W, H);
-
-            // draw stars
-            orbs.forEach((orb, i) => {
-                const amp      = 0.12;
-                const cx       = (orb.xf + Math.sin(t * orb.speed + orb.phase) * amp) * W;
-                const cy       = (orb.yf + Math.cos(t * orb.speed * 0.7 + orb.phase) * amp) * H;
-                const rad      = orb.r * Math.max(W, H) * 0.22;
-                const rotation = t * orb.speed * 0.4 + orb.phase; // slow spin
-                drawStar(cx, cy, rad, alphas[i], rotation);
-            });
-
-            // vignette overlay – dark edges, clear center
-            ctx.globalCompositeOperation = 'source-over';
-            const vg = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H) * 0.72);
-            vg.addColorStop(0,   'rgba(10,12,16,0.00)');
-            vg.addColorStop(0.5, 'rgba(10,12,16,0.25)');
-            vg.addColorStop(1,   'rgba(10,12,16,0.49)');
-            ctx.fillStyle = vg;
-            ctx.fillRect(0, 0, W, H);
-
-            requestAnimationFrame(draw);
-        }
-        requestAnimationFrame(draw);
-    })();
 </script>
 
 </body>
